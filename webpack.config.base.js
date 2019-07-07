@@ -12,11 +12,32 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        options: {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: [
+                  'last 2 versions',
+                  'not dead',
+                  'not < 2%',
+                  'not ie 11'
+                ],
+                useBuiltIns: 'entry'
+              }
+            ],
+            '@babel/preset-react'
+          ],
+          plugins: [
+            'react-hot-loader/babel',
+            '@babel/plugin-proposal-class-properties'
+          ]
+        }
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        test: [/\.css$/, /\.scss$/],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
         exclude: /node_modules/
       }
     ]
